@@ -1,16 +1,5 @@
-const express = require('express');
-const countriesRoutes = require('./routes/countriesRoutes');
-const usersRoutes = require('./routes/usersRoutes');
 const mongoose = require('mongoose');
-const app = express();
-const PORT = 3000;
-const pid = process.pid;
-
-app.use(express.urlencoded({extended: false}));
-app.use(express.json());
-
-app.use('/countries', countriesRoutes);
-app.use('/users', usersRoutes);
+const app = require('./core');
 
 (async () => {
     try {
@@ -19,9 +8,7 @@ app.use('/users', usersRoutes);
             useFindAndModify: false,
             useUnifiedTopology: true
         });
-        app.listen(PORT, () => {
-            console.log(`Port started on port: ${PORT}, and PID: ${pid}`);
-        });
+        app.listen();
     } catch (err) {
         console.log(err);
     }
